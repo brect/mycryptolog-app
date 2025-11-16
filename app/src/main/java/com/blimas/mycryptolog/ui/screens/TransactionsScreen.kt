@@ -5,12 +5,14 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.blimas.mycryptolog.model.Transaction
@@ -68,5 +70,28 @@ private fun TransactionsContent(
                 onDeleteClick = onDeleteClick
             )
         }
+    }
+}
+
+@Preview(showBackground = true, name = "Transactions Screen Preview")
+@Composable
+fun TransactionsScreenPreview() {
+    val sampleWallets = listOf(
+        Wallet(id = "1", name = "Binance"),
+        Wallet(id = "2", name = "Cold Wallet")
+    )
+    val sampleTransactions = listOf(
+        Transaction("t1", "1", "BUY", "BTC", 0.5, 60000.0, System.currentTimeMillis()),
+        Transaction("t2", "1", "SELL", "ETH", 10.0, 4000.0, System.currentTimeMillis() - 100000),
+        Transaction("t3", "2", "BUY", "ADA", 100.0, 0.45, System.currentTimeMillis() - 200000)
+    )
+
+    MaterialTheme {
+        TransactionsContent(
+            transactions = sampleTransactions,
+            wallets = sampleWallets,
+            onEditClick = {},
+            onDeleteClick = {}
+        )
     }
 }

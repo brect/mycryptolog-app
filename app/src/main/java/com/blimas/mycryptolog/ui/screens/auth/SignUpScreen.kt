@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.blimas.mycryptolog.viewmodel.AuthViewModel
@@ -121,5 +122,42 @@ private fun SignUpContent(
         TextButton(onClick = onLoginClick, enabled = !isLoading) {
             Text("Already have an account? Login")
         }
+    }
+}
+
+
+@Preview(showBackground = true, name = "SignUp Screen - Default")
+@Composable
+fun SignUpContentDefaultPreview() {
+    MaterialTheme {
+        SignUpContent(
+            email = "",
+            onEmailChange = {},
+            password = "",
+            onPasswordChange = {},
+            confirmPassword = "",
+            onConfirmPasswordChange = {},
+            isLoading = false,
+            onSignUpClick = {},
+            onLoginClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "SignUp Screen - Loading")
+@Composable
+fun SignUpContentLoadingPreview() {
+    MaterialTheme {
+        SignUpContent(
+            email = "user@example.com",
+            onEmailChange = {},
+            password = "password",
+            onPasswordChange = {},
+            confirmPassword = "password",
+            onConfirmPasswordChange = {},
+            isLoading = true,
+            onSignUpClick = {},
+            onLoginClick = {}
+        )
     }
 }

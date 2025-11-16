@@ -39,7 +39,7 @@ Para clonar e executar este projeto em seu ambiente local, siga os passos abaixo
 - Android Studio (versão mais recente recomendada)
 - JDK 11 ou superior (verifique a configuração do Gradle JDK no Android Studio)
 
-### Passo 1: Configurar o Projeto no Firebase
+### Passo 1: Configurar o Projeto no Firebase (Se necessário)
 
 1.  Crie um novo projeto no [Console do Firebase](https://console.firebase.google.com/).
 2.  Adicione um novo aplicativo Android ao seu projeto com o **package name** exato: `com.blimas.mycryptolog`.

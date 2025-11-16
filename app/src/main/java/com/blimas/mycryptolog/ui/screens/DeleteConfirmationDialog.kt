@@ -7,7 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DeleteConfirmationDialog(onDismiss: () -> Unit, onConfirm: () -> Unit) {
@@ -23,4 +23,15 @@ fun DeleteConfirmationDialog(onDismiss: () -> Unit, onConfirm: () -> Unit) {
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } }
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DeleteConfirmationDialogPreview() {
+    MaterialTheme {
+        DeleteConfirmationDialog(
+            onDismiss = {},
+            onConfirm = {}
+        )
+    }
 }

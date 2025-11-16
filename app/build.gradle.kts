@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.database.ktx)
     implementation(libs.firebase.appcheck.playintegrity)
+    implementation(libs.androidx.ui.tooling.preview)
     debugImplementation(libs.firebase.appcheck.debug)
 
     testImplementation(libs.junit)
@@ -71,4 +72,5 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    debugImplementation(libs.androidx.ui.tooling)
 }

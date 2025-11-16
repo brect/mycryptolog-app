@@ -28,6 +28,7 @@ class DatabaseViewModel : ViewModel() {
         getWallets()
     }
 
+    // --- Wallet CRUD ---
     fun createWallet(walletName: String) {
         userId?.let { currentUserId ->
             val walletId = database.child("wallets").child(currentUserId).push().key ?: ""
@@ -36,6 +37,27 @@ class DatabaseViewModel : ViewModel() {
         }
     }
 
+    fun updateWallet(wallet: Wallet) {
+        userId?.let { currentUserId ->
+            if (wallet.id.isBlank()) return
+            database.child("wallets").child(currentUserId).child(wallet.id).child("name")
+                .setValue(wallet.name)
+        }
+    }
+
+    fun deleteWallet(wallet: Wallet) {
+        userId?.let { currentUserId ->
+            if (wallet.id.isBlank()) return
+            // First, delete all transactions associated with the wallet
+            database.child("transactions").child(wallet.id).removeValue()
+                .addOnSuccessListener {
+                    // After transactions are deleted, delete the wallet itself
+                    database.child("wallets").child(currentUserId).child(wallet.id).removeValue()
+                }
+        }
+    }
+
+    // --- Transaction CRUD ---
     fun saveTransaction(transaction: Transaction) {
         if (transaction.walletId.isBlank()) return
         val transactionId =
@@ -81,6 +103,7 @@ class DatabaseViewModel : ViewModel() {
         }
     }
 
+    // --- Data Fetching ---
     fun getWallets() {
         userId?.let { currentUserId ->
             database.child("wallets").child(currentUserId)

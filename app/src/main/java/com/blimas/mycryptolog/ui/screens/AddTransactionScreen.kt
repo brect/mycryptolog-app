@@ -51,6 +51,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -75,7 +76,9 @@ fun AddTransactionScreen(
     cryptoViewModel: CryptoViewModel = viewModel()
 ) {
     val wallets by databaseViewModel.wallets.observeAsState(emptyList())
+
     val allTransactions by databaseViewModel.transactions.observeAsState(emptyList())
+
     val allCoins by cryptoViewModel.coins.collectAsState()
 
     val isEditMode = transactionId != null
@@ -374,5 +377,60 @@ private fun AddTransactionContent(
             }
             Spacer(modifier = Modifier.height(16.dp))
         }
+    }
+}
+
+@Preview(showBackground = true, name = "Add Transaction Mode")
+@Composable
+fun AddTransactionScreenPreview() {
+    MaterialTheme {
+        AddTransactionContent(
+            isEditMode = false,
+            wallets = listOf(Wallet(id = "1", name = "Binance")),
+            allCoins = listOf(Coin("BTC", "Bitcoin")),
+            selectedWallet = null,
+            onWalletSelected = {},
+            selectedType = "BUY",
+            onTypeSelected = {},
+            cryptoSearchText = "",
+            onCryptoSearchTextChange = {},
+            quantity = "",
+            onQuantityChange = {},
+            price = "",
+            onPriceChange = {},
+            selectedDateMillis = System.currentTimeMillis(),
+            onDateClicked = {},
+            onSaveClicked = {},
+            onBackClicked = {},
+            onCreateWalletClicked = {}
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Edit Transaction Mode")
+@Composable
+fun EditTransactionScreenPreview() {
+    val sampleWallet = Wallet(id = "1", name = "Binance")
+    MaterialTheme {
+        AddTransactionContent(
+            isEditMode = true,
+            wallets = listOf(sampleWallet),
+            allCoins = listOf(Coin("BTC", "Bitcoin")),
+            selectedWallet = sampleWallet,
+            onWalletSelected = {},
+            selectedType = "SELL",
+            onTypeSelected = {},
+            cryptoSearchText = "BTC",
+            onCryptoSearchTextChange = {},
+            quantity = "0.123",
+            onPriceChange = {},
+            price = "6543210", // R$ 65.432,10
+            selectedDateMillis = System.currentTimeMillis(),
+            onDateClicked = {},
+            onSaveClicked = {},
+            onBackClicked = {},
+            onCreateWalletClicked = {},
+            onQuantityChange = {},
+        )
     }
 }
