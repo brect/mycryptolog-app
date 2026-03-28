@@ -105,7 +105,7 @@ private fun HomeContent(
                     .weight(1f)
             ) { page ->
                 when (page) {
-                    0 -> WalletsScreen(wallets, transactions, databaseViewModel)
+                    0 -> WalletsScreen(databaseViewModel)
                     1 -> TransactionsScreen(transactions, wallets, navController, databaseViewModel)
                 }
             }
@@ -117,16 +117,6 @@ private fun HomeContent(
 @Preview(showBackground = true, name = "Home Screen Preview")
 @Composable
 fun HomeScreenPreview() {
-    val sampleWallets = listOf(
-        Wallet(id = "1", name = "Binance", cryptoHoldings = mapOf("BTC" to 0.5, "ETH" to 10.0)),
-        Wallet(id = "2", name = "Cold Wallet", cryptoHoldings = mapOf("ADA" to 5000.0))
-    )
-    val sampleTransactions = listOf(
-        Transaction("t1", "1", "BUY", "BTC", 0.5, 60000.0, System.currentTimeMillis()),
-        Transaction("t2", "1", "SELL", "ETH", 2.0, 4100.0, System.currentTimeMillis() - 100000),
-        Transaction("t3", "2", "BUY", "ADA", 5000.0, 0.45, System.currentTimeMillis() - 200000)
-    )
-
     val dummyNavController = NavController(LocalContext.current)
 
     MaterialTheme {

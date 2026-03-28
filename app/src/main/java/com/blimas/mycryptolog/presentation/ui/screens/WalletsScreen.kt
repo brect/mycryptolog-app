@@ -17,56 +17,25 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.blimas.mycryptolog.domain.model.ProcessedHolding
-import com.blimas.mycryptolog.domain.model.Transaction
 import com.blimas.mycryptolog.domain.model.Wallet
 import com.blimas.mycryptolog.presentation.dashboard.DatabaseViewModel
 import com.blimas.mycryptolog.presentation.ui.components.WalletCard
 
 @Composable
 fun WalletsScreen(
-    wallets: List<Wallet>,
-    allTransactions: List<Transaction>,
     databaseViewModel: DatabaseViewModel
 ) {
     var walletToEdit by remember { mutableStateOf<Wallet?>(null) }
     var walletToDelete by remember { mutableStateOf<Wallet?>(null) }
-    var showCreateWalletDialog by remember { mutableStateOf(false) }
 
-    val processedWallets = wallets.map { wallet ->
-        val relevantTransactions = allTransactions.filter { it.walletId == wallet.id }
-
-        val holdingsMap = relevantTransactions.groupBy { it.crypto }.mapValues { (_, txs) ->
-            txs.sumOf { tx ->
-                if (tx.type.equals("BUY", ignoreCase = true)) tx.quantity else -tx.quantity
-            }
-        }.filterValues { it != 0.0 }
-
-        val holdings = holdingsMap.map { (crypto, currentQuantity) ->
-            val cryptoTransactions = relevantTransactions.filter { it.crypto == crypto }
-            val relevantBuys = cryptoTransactions.filter { it.type.equals("BUY", ignoreCase = true) }
-            
-            val totalCostOfBuys = relevantBuys.sumOf { it.price * it.quantity }
-            val totalQuantityBought = relevantBuys.sumOf { it.quantity }
-            
-            val totalProceedsFromSells = cryptoTransactions.filter { it.type.equals("SELL", ignoreCase = true) }
-                .sumOf { it.price * it.quantity }
-
-            ProcessedHolding(
-                crypto = crypto,
-                currentQuantity = currentQuantity,
-                netInvestedValue = totalCostOfBuys - totalProceedsFromSells,
-                avgBuyPrice = if (totalQuantityBought > 0) totalCostOfBuys / totalQuantityBought else 0.0
-            )
-        }
-        wallet to holdings
-    }
+    val processedWallets by databaseViewModel.processedWallets.observeAsState(emptyList())
 
     Box(modifier = Modifier.fillMaxSize()) {
         WalletsContent(
@@ -161,24 +130,4 @@ private fun EditWalletDialog(wallet: Wallet, onDismiss: () -> Unit, onConfirm: (
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } }
     )
-}
-
-@Preview(showBackground = true, name = "Wallets Screen Preview")
-@Composable
-fun WalletsScreenPreview() {
-    val sampleWallets = listOf(
-        Wallet(id = "1", name = "Binance") to listOf(
-            ProcessedHolding("BTC", 0.5, 30000.0, 60000.0),
-            ProcessedHolding("ETH", 10.0, 39000.0, 3900.0)
-        ),
-        Wallet(id = "2", name = "Cold Wallet", cryptoHoldings = emptyMap()) to emptyList()
-    )
-
-    MaterialTheme {
-        WalletsContent(
-            processedWallets = sampleWallets,
-            onEditWallet = {},
-            onDeleteWallet = {}
-        )
-    }
 }
