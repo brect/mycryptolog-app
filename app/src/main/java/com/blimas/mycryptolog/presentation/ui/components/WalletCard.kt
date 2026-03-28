@@ -1,6 +1,5 @@
 package com.blimas.mycryptolog.presentation.ui.components
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,12 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.blimas.mycryptolog.domain.model.ProcessedHolding
 import com.blimas.mycryptolog.domain.model.Wallet
-import com.blimas.mycryptolog.presentation.ui.screens.HoldingItem
 
-
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun WalletCard(
+fun WalletCard(
     wallet: Wallet,
     holdings: List<ProcessedHolding>,
     onEditClick: () -> Unit,

@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,14 +26,13 @@ import java.util.Locale
 fun HoldingItem(holding: ProcessedHolding) {
     val currencyFormatter = remember { NumberFormat.getCurrencyInstance(Locale("pt", "BR")) }
 
-    Divider(modifier = Modifier.padding(vertical = 8.dp))
+    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
     Text(holding.crypto, fontWeight = FontWeight.Bold, fontSize = 18.sp)
     Spacer(modifier = Modifier.height(8.dp))
 
     Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
             Text("Quantity", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
@@ -41,14 +40,15 @@ fun HoldingItem(holding: ProcessedHolding) {
         }
         Column(horizontalAlignment = Alignment.End) {
             Text("Net Invested", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
-            Text(currencyFormatter.format(holding.netInvestedValue), fontWeight = FontWeight.SemiBold)
+            Text(
+                currencyFormatter.format(holding.netInvestedValue), fontWeight = FontWeight.SemiBold
+            )
         }
     }
     Spacer(modifier = Modifier.height(4.dp))
 
     Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.End
+        modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
     ) {
         Text(
             text = "Avg. Price: ${currencyFormatter.format(holding.avgBuyPrice)}",

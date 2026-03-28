@@ -1,27 +1,33 @@
 package com.blimas.mycryptolog.presentation.ui.screens
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.blimas.mycryptolog.domain.model.ProcessedHolding
 import com.blimas.mycryptolog.domain.model.Transaction
 import com.blimas.mycryptolog.domain.model.Wallet
 import com.blimas.mycryptolog.presentation.dashboard.DatabaseViewModel
-import java.text.NumberFormat
-import java.util.Locale
+import com.blimas.mycryptolog.presentation.ui.components.WalletCard
 
 @Composable
 fun WalletsScreen(
@@ -31,6 +37,7 @@ fun WalletsScreen(
 ) {
     var walletToEdit by remember { mutableStateOf<Wallet?>(null) }
     var walletToDelete by remember { mutableStateOf<Wallet?>(null) }
+    var showCreateWalletDialog by remember { mutableStateOf(false) }
 
     val processedWallets = wallets.map { wallet ->
         val relevantTransactions = allTransactions.filter { it.walletId == wallet.id }
@@ -110,101 +117,6 @@ private fun WalletsContent(
                 onDeleteClick = { onDeleteWallet(wallet) }
             )
         }
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-private fun WalletCard(
-    wallet: Wallet,
-    holdings: List<ProcessedHolding>,
-    onEditClick: () -> Unit,
-    onDeleteClick: () -> Unit
-) {
-    var isMenuExpanded by remember { mutableStateOf(false) }
-
-    Card(modifier = Modifier.fillMaxWidth()) {
-        Column(modifier = Modifier.padding(12.dp)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = wallet.name,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,
-                    modifier = Modifier.weight(1f)
-                )
-                Box {
-                    IconButton(onClick = { isMenuExpanded = true }) {
-                        Icon(Icons.Default.MoreVert, contentDescription = "More options")
-                    }
-                    DropdownMenu(
-                        expanded = isMenuExpanded,
-                        onDismissRequest = { isMenuExpanded = false }
-                    ) {
-                        DropdownMenuItem(text = { Text("Edit Name") }, onClick = {
-                            onEditClick()
-                            isMenuExpanded = false
-                        })
-                        DropdownMenuItem(text = { Text("Delete Wallet") }, onClick = {
-                            onDeleteClick()
-                            isMenuExpanded = false
-                        })
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            if (holdings.isEmpty()) {
-                Text("No holdings yet.")
-            } else {
-                holdings.forEach { holding ->
-                    HoldingItem(holding = holding)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun HoldingItem(holding: ProcessedHolding) {
-    val currencyFormatter = remember { NumberFormat.getCurrencyInstance(Locale("pt", "BR")) }
-
-    Divider(modifier = Modifier.padding(vertical = 8.dp))
-
-    Text(holding.crypto, fontWeight = FontWeight.Bold, fontSize = 18.sp)
-    Spacer(modifier = Modifier.height(8.dp))
-
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Column {
-            Text("Quantity", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
-            Text(String.format(Locale.US, "%.8f", holding.currentQuantity))
-        }
-        Column(horizontalAlignment = Alignment.End) {
-            Text("Net Invested", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
-            Text(
-                currencyFormatter.format(holding.netInvestedValue),
-                fontWeight = FontWeight.SemiBold
-            )
-        }
-    }
-    Spacer(modifier = Modifier.height(4.dp))
-
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.End
-    ) {
-        Text(
-            text = "Avg. Price: ${currencyFormatter.format(holding.avgBuyPrice)}",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
     }
 }
 
