@@ -3,13 +3,13 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "com.blimas.mycryptolog"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.blimas.mycryptolog"
@@ -55,6 +55,11 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.runtime.livedata)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // Firebase
     implementation(platform(libs.firebase.bom))
