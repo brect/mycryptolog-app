@@ -9,7 +9,7 @@ class CalculateHoldingsUseCaseTest {
     private val useCase = CalculateHoldingsUseCase()
 
     @Test
-    fun `quando houver compras, o saldo deve ser a soma das quantidades`() {
+    fun `should sum quantities correctly when multiple buys occur`() {
         val transactions = listOf(
             Transaction(crypto = "BTC", quantity = 0.5, type = "BUY"),
             Transaction(crypto = "BTC", quantity = 0.2, type = "BUY")
@@ -19,7 +19,7 @@ class CalculateHoldingsUseCaseTest {
     }
 
     @Test
-    fun `quando houver venda, o saldo deve subtrair a quantidade vendida`() {
+    fun `should subtract quantity correctly when a sell occurs`() {
         val transactions = listOf(
             Transaction(crypto = "ETH", quantity = 1.0, type = "BUY"),
             Transaction(crypto = "ETH", quantity = 0.4, type = "SELL")
@@ -29,7 +29,7 @@ class CalculateHoldingsUseCaseTest {
     }
 
     @Test
-    fun `moedas diferentes devem ter saldos separados`() {
+    fun `should keep separate balances for different assets`() {
         val transactions = listOf(
             Transaction(crypto = "BTC", quantity = 0.1, type = "BUY"),
             Transaction(crypto = "ETH", quantity = 2.0, type = "BUY")
@@ -39,7 +39,7 @@ class CalculateHoldingsUseCaseTest {
     }
 
     @Test
-    fun `se a quantidade final for zero, a moeda nao deve aparecer na lista`() {
+    fun `should not include asset in the list if the final quantity is zero`() {
         val transactions = listOf(
             Transaction(crypto = "SOL", quantity = 10.0, type = "BUY"),
             Transaction(crypto = "SOL", quantity = 10.0, type = "SELL")
@@ -49,7 +49,7 @@ class CalculateHoldingsUseCaseTest {
     }
 
     @Test
-    fun `o preco medio de compra deve ser calculado corretamente`() {
+    fun `should calculate the average buy price correctly`() {
         val transactions = listOf(
             Transaction(crypto = "BTC", quantity = 1.0, price = 50000.0, type = "BUY"),
             Transaction(crypto = "BTC", quantity = 1.0, price = 60000.0, type = "BUY")
