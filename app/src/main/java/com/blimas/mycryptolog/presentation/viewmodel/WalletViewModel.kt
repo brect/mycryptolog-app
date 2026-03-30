@@ -1,11 +1,11 @@
 package com.blimas.mycryptolog.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
-import com.blimas.mycryptolog.domain.model.ProcessedHolding
 import com.blimas.mycryptolog.domain.model.Wallet
 import com.blimas.mycryptolog.domain.usecase.CalculateHoldingsUseCase
 import com.blimas.mycryptolog.domain.usecase.transaction.GetTransactionsUseCase
@@ -29,12 +29,16 @@ class WalletViewModel @Inject constructor(
 
     val wallets: LiveData<List<Wallet>> = getWalletsUseCase()
 
-    // Processamento de holdings (saldo) é uma responsabilidade de domínio da Carteira
-    val processedWallets: LiveData<List<Pair<Wallet, List<ProcessedHolding>>>> = wallets.switchMap { walletList ->
-        getTransactionsUseCase(walletList.map { it.id }).map { allTxs ->
-            walletList.map { wallet ->
-                val walletTxs = allTxs.filter { it.walletId == wallet.id }
-                wallet to calculateHoldingsUseCase(walletTxs)
+    val uiState: LiveData<WalletUiState> = wallets.switchMap { walletList ->
+        if (walletList.isEmpty()) {
+            MutableLiveData(WalletUiState.Empty)
+        } else {
+            getTransactionsUseCase(walletList.map { it.id }).map { allTxs ->
+                val processed = walletList.map { wallet ->
+                    val walletTxs = allTxs.filter { it.walletId == wallet.id }
+                    wallet to calculateHoldingsUseCase(walletTxs)
+                }
+                WalletUiState.Success(processed)
             }
         }
     }
