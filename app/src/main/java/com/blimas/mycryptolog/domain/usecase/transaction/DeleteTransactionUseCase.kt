@@ -1,0 +1,11 @@
+package com.blimas.mycryptolog.domain.usecase.transaction
+
+import com.blimas.mycryptolog.domain.model.Transaction
+import com.blimas.mycryptolog.domain.repository.TransactionRepository
+import javax.inject.Inject
+
+class DeleteTransactionUseCase @Inject constructor(
+    private val repository: TransactionRepository
+) {
+    suspend operator fun invoke(transaction: Transaction) = repository.deleteTransaction(transaction)
+}

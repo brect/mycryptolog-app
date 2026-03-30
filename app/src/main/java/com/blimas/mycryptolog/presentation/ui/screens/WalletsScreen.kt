@@ -25,17 +25,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.blimas.mycryptolog.domain.model.ProcessedHolding
 import com.blimas.mycryptolog.domain.model.Wallet
-import com.blimas.mycryptolog.presentation.dashboard.DatabaseViewModel
 import com.blimas.mycryptolog.presentation.ui.components.WalletCard
+import com.blimas.mycryptolog.presentation.viewmodel.WalletViewModel
 
 @Composable
 fun WalletsScreen(
-    databaseViewModel: DatabaseViewModel
+    walletViewModel: WalletViewModel
 ) {
     var walletToEdit by remember { mutableStateOf<Wallet?>(null) }
     var walletToDelete by remember { mutableStateOf<Wallet?>(null) }
 
-    val processedWallets by databaseViewModel.processedWallets.observeAsState(emptyList())
+    val processedWallets by walletViewModel.processedWallets.observeAsState(emptyList())
 
     Box(modifier = Modifier.fillMaxSize()) {
         WalletsContent(
@@ -50,7 +50,7 @@ fun WalletsScreen(
             wallet = it,
             onDismiss = { walletToEdit = null },
             onConfirm = {
-                databaseViewModel.updateWallet(it)
+                walletViewModel.updateWallet(it)
                 walletToEdit = null
             }
         )
@@ -60,7 +60,7 @@ fun WalletsScreen(
         DeleteWalletDialog(
             onDismiss = { walletToDelete = null },
             onConfirm = {
-                databaseViewModel.deleteWallet(it)
+                walletViewModel.deleteWallet(it)
                 walletToDelete = null
             }
         )

@@ -57,8 +57,9 @@ import androidx.navigation.NavController
 import com.blimas.mycryptolog.domain.model.Coin
 import com.blimas.mycryptolog.domain.model.Transaction
 import com.blimas.mycryptolog.domain.model.Wallet
-import com.blimas.mycryptolog.presentation.crypto.CryptoViewModel
-import com.blimas.mycryptolog.presentation.dashboard.DatabaseViewModel
+import com.blimas.mycryptolog.presentation.viewmodel.CryptoViewModel
+import com.blimas.mycryptolog.presentation.viewmodel.TransactionViewModel
+import com.blimas.mycryptolog.presentation.viewmodel.WalletViewModel
 import com.blimas.mycryptolog.util.CurrencyVisualTransformation
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -71,13 +72,12 @@ fun AddTransactionScreen(
     navController: NavController,
     transactionId: String?,
     walletId: String?,
-    databaseViewModel: DatabaseViewModel = hiltViewModel(),
+    walletViewModel: WalletViewModel = hiltViewModel(),
+    transactionViewModel: TransactionViewModel = hiltViewModel(),
     cryptoViewModel: CryptoViewModel = hiltViewModel()
 ) {
-    val wallets by databaseViewModel.wallets.observeAsState(emptyList())
-
-    val allTransactions by databaseViewModel.transactions.observeAsState(emptyList())
-
+    val wallets by walletViewModel.wallets.observeAsState(emptyList())
+    val allTransactions by transactionViewModel.transactions.observeAsState(emptyList())
     val allCoins by cryptoViewModel.coins.collectAsState()
 
     val isEditMode = transactionId != null
@@ -147,9 +147,9 @@ fun AddTransactionScreen(
             )
 
             if (isEditMode) {
-                 databaseViewModel.updateTransaction(transaction)
+                 transactionViewModel.updateTransaction(transaction)
             } else {
-                databaseViewModel.saveTransaction(transaction)
+                transactionViewModel.saveTransaction(transaction)
             }
             navController.popBackStack()
         },
@@ -177,7 +177,7 @@ fun AddTransactionScreen(
     if (showCreateWalletDialog) {
         CreateWalletDialog(
             onDismiss = { showCreateWalletDialog = false },
-            onConfirm = { databaseViewModel.createWallet(it); showCreateWalletDialog = false }
+            onConfirm = { walletViewModel.createWallet(it); showCreateWalletDialog = false }
         )
     }
 }

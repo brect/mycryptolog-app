@@ -1,4 +1,4 @@
-package com.blimas.mycryptolog.presentation.auth
+package com.blimas.mycryptolog.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

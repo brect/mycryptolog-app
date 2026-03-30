@@ -1,5 +1,7 @@
 package com.blimas.mycryptolog.di
 
+import com.blimas.mycryptolog.domain.repository.TransactionRepository
+import com.blimas.mycryptolog.domain.repository.TransactionRepositoryImpl
 import com.blimas.mycryptolog.domain.repository.WalletRepository
 import com.blimas.mycryptolog.domain.repository.WalletRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
@@ -29,4 +31,11 @@ object AppModule {
         db: DatabaseReference,
         auth: FirebaseAuth
     ): WalletRepository = WalletRepositoryImpl(db, auth)
+
+    @Provides
+    @Singleton
+    fun provideTransactionRepository(
+        db: DatabaseReference,
+        auth: FirebaseAuth
+    ): TransactionRepository = TransactionRepositoryImpl(db, auth)
 }

@@ -18,11 +18,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.blimas.mycryptolog.domain.model.AuthState
-import com.blimas.mycryptolog.presentation.auth.AuthViewModel
 import com.blimas.mycryptolog.presentation.ui.screens.AddTransactionScreen
 import com.blimas.mycryptolog.presentation.ui.screens.HomeScreen
 import com.blimas.mycryptolog.presentation.ui.screens.auth.LoginScreen
 import com.blimas.mycryptolog.presentation.ui.screens.auth.SignUpScreen
+import com.blimas.mycryptolog.presentation.viewmodel.AuthViewModel
 
 @Composable
 fun NavGraph(authViewModel: AuthViewModel = hiltViewModel()) {

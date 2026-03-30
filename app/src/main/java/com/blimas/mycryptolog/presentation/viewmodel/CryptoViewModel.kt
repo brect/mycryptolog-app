@@ -1,4 +1,4 @@
-package com.blimas.mycryptolog.presentation.crypto
+package com.blimas.mycryptolog.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.blimas.mycryptolog.domain.model.Coin

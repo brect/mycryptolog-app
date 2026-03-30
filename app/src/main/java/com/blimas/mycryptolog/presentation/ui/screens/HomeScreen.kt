@@ -20,18 +20,15 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.blimas.mycryptolog.domain.model.Transaction
-import com.blimas.mycryptolog.domain.model.Wallet
-import com.blimas.mycryptolog.presentation.auth.AuthViewModel
-import com.blimas.mycryptolog.presentation.dashboard.DatabaseViewModel
+import com.blimas.mycryptolog.presentation.viewmodel.AuthViewModel
+import com.blimas.mycryptolog.presentation.viewmodel.TransactionViewModel
+import com.blimas.mycryptolog.presentation.viewmodel.WalletViewModel
 import kotlinx.coroutines.launch
 
 // --- STATEFUL COMPOSABLE ---
@@ -40,18 +37,15 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     navController: NavController,
     authViewModel: AuthViewModel = hiltViewModel(),
-    databaseViewModel: DatabaseViewModel = hiltViewModel(),
+    walletViewModel: WalletViewModel = hiltViewModel(),
+    transactionViewModel: TransactionViewModel = hiltViewModel(),
 ) {
-    val wallets by databaseViewModel.wallets.observeAsState(emptyList())
-    val transactions by databaseViewModel.transactions.observeAsState(emptyList())
-
     HomeContent(
-        wallets = wallets,
-        transactions = transactions,
         onSignOutClick = { authViewModel.signOut() },
         onAddTransactionClick = { navController.navigate("add_transaction") },
         navController = navController,
-        databaseViewModel = databaseViewModel,
+        walletViewModel = walletViewModel,
+        transactionViewModel = transactionViewModel
     )
 }
 
@@ -59,12 +53,11 @@ fun HomeScreen(
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 private fun HomeContent(
-    wallets: List<Wallet>,
-    transactions: List<Transaction>,
     onSignOutClick: () -> Unit,
     onAddTransactionClick: () -> Unit,
     navController: NavController,
-    databaseViewModel: DatabaseViewModel,
+    walletViewModel: WalletViewModel,
+    transactionViewModel: TransactionViewModel,
 ) {
     val pagerState = rememberPagerState(pageCount = { 2 })
     val coroutineScope = rememberCoroutineScope()
@@ -105,8 +98,8 @@ private fun HomeContent(
                     .weight(1f)
             ) { page ->
                 when (page) {
-                    0 -> WalletsScreen(databaseViewModel)
-                    1 -> TransactionsScreen(transactions, wallets, navController, databaseViewModel)
+                    0 -> WalletsScreen(walletViewModel)
+                    1 -> TransactionsScreen(navController, transactionViewModel, walletViewModel)
                 }
             }
         }
