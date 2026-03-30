@@ -1,7 +1,6 @@
-package com.blimas.mycryptolog.domain.model
+package com.blimas.mycryptolog.data.model
 
-data class Transaction(
-    var id: String = "",
+data class TransactionDto(
     var walletId: String = "",
     val type: String = "",
     val crypto: String = "",

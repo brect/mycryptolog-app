@@ -1,8 +1,12 @@
-package com.blimas.mycryptolog.domain.repository
+package com.blimas.mycryptolog.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.blimas.mycryptolog.data.mapper.toDomain
+import com.blimas.mycryptolog.data.mapper.toDto
+import com.blimas.mycryptolog.data.model.TransactionDto
 import com.blimas.mycryptolog.domain.model.Transaction
+import com.blimas.mycryptolog.domain.repository.TransactionRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -34,9 +38,7 @@ class TransactionRepositoryImpl @Inject constructor(
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val transactions = snapshot.children.mapNotNull { child ->
-                            child.getValue(Transaction::class.java)?.apply {
-                                this.id = child.key ?: ""
-                            }
+                            child.getValue(TransactionDto::class.java)?.toDomain(child.key ?: "")
                         }
                         allTransactionsMap[walletId] = transactions
                         liveData.value = allTransactionsMap.values.flatten().sortedByDescending { it.date }
@@ -53,13 +55,13 @@ class TransactionRepositoryImpl @Inject constructor(
         val id = userId ?: return
         if (transaction.walletId.isBlank()) return
         val transRef = db.child("users").child(id).child("transactions").child(transaction.walletId).push()
-        transRef.setValue(transaction)
+        transRef.setValue(transaction.toDto())
     }
 
     override suspend fun updateTransaction(transaction: Transaction) {
         val id = userId ?: return
         if (transaction.id.isBlank() || transaction.walletId.isBlank()) return
-        db.child("users").child(id).child("transactions").child(transaction.walletId).child(transaction.id).setValue(transaction)
+        db.child("users").child(id).child("transactions").child(transaction.walletId).child(transaction.id).setValue(transaction.toDto())
     }
 
     override suspend fun deleteTransaction(transaction: Transaction) {

@@ -1,8 +1,12 @@
-package com.blimas.mycryptolog.domain.repository
+package com.blimas.mycryptolog.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.blimas.mycryptolog.data.mapper.toDomain
+import com.blimas.mycryptolog.data.mapper.toDto
+import com.blimas.mycryptolog.data.model.WalletDto
 import com.blimas.mycryptolog.domain.model.Wallet
+import com.blimas.mycryptolog.domain.repository.WalletRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,9 +30,7 @@ class WalletRepositoryImpl @Inject constructor(
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val wallets = snapshot.children.mapNotNull { child ->
-                        child.getValue(Wallet::class.java)?.apply {
-                            this.id = child.key ?: ""
-                        }
+                        child.getValue(WalletDto::class.java)?.toDomain(child.key ?: "")
                     }
                     liveData.value = wallets
                 }
@@ -42,22 +44,20 @@ class WalletRepositoryImpl @Inject constructor(
         val id = userId ?: return
         val walletRef = db.child("users").child(id).child("wallets").push()
         val wallet = Wallet(name = name)
-        walletRef.setValue(wallet)
+        walletRef.setValue(wallet.toDto())
     }
 
     override suspend fun updateWallet(wallet: Wallet) {
         val id = userId ?: return
         if (wallet.id.isBlank()) return
-        db.child("users").child(id).child("wallets").child(wallet.id).setValue(wallet)
+        db.child("users").child(id).child("wallets").child(wallet.id).setValue(wallet.toDto())
     }
 
     override suspend fun deleteWallet(wallet: Wallet) {
         val id = userId ?: return
         if (wallet.id.isBlank()) return
 
-        // Deletar transações associadas
         db.child("users").child(id).child("transactions").child(wallet.id).removeValue()
-        // Deletar carteira
         db.child("users").child(id).child("wallets").child(wallet.id).removeValue()
     }
 }
