@@ -32,9 +32,9 @@ O projeto é um aplicativo Android nativo configurado no módulo `app`, com `app
 
 Evidências:
 
-- Configuração Android no arquivo [`app/build.gradle.kts`](app/build.gradle.kts)
-- Activity principal registrada em [`app/src/main/AndroidManifest.xml`](app/src/main/AndroidManifest.xml)
-- Entrada da aplicação em [`mycryptolog/application/MainActivity.kt`](mycryptolog/application/MainActivity.kt)
+- Configuração Android no arquivo [`app/build.gradle.kts`](https://github.com/brect/mycryptolog-app/blob/main/app/build.gradle.kts)
+- Activity principal registrada em [`app/src/main/AndroidManifest.xml`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/AndroidManifest.xml)
+- Entrada da aplicação em [`app/src/main/java/com/blimas/mycryptolog/application/MainActivity.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/application/MainActivity.kt)
 
 ### 2. Clean Code
 
@@ -53,10 +53,10 @@ Como isso foi aplicado:
 
 Evidências:
 
-- Separação de responsabilidades em [`mycryptolog/presentation/viewmodel/WalletViewModel.kt`](mycryptolog/presentation/viewmodel/WalletViewModel.kt)
-- Regras de negócio em [`mycryptolog/domain/usecase/CalculateHoldingsUseCase.kt`](mycryptolog/domain/usecase/CalculateHoldingsUseCase.kt)
-- Mapeamento entre camadas em [`mycryptolog/data/mapper/Mappers.kt`](mycryptolog/data/mapper/Mappers.kt)
-- Separação entre `HomeScreen` e `HomeContent` em [`mycryptolog/presentation/ui/screens/HomeScreen.kt`](mycryptolog/presentation/ui/screens/HomeScreen.kt)
+- Separação de responsabilidades em [`app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/WalletViewModel.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/WalletViewModel.kt)
+- Regras de negócio em [`app/src/main/java/com/blimas/mycryptolog/domain/usecase/CalculateHoldingsUseCase.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/domain/usecase/CalculateHoldingsUseCase.kt)
+- Mapeamento entre camadas em [`app/src/main/java/com/blimas/mycryptolog/data/mapper/Mappers.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/data/mapper/Mappers.kt)
+- Separação entre `HomeScreen` e `HomeContent` em [`app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/HomeScreen.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/HomeScreen.kt)
 
 ### 3. Arquitetura de Software
 
@@ -83,10 +83,10 @@ Fluxo arquitetural:
 
 Evidências:
 
-- ViewModels em [`mycryptolog/presentation/viewmodel`](mycryptolog/presentation/viewmodel)
-- Use cases em [`mycryptolog/domain/usecase`](mycryptolog/domain/usecase)
-- Contratos de repositório em [`mycryptolog/domain/repository`](mycryptolog/domain/repository)
-- Implementações de repositório em [`mycryptolog/data/repository`](mycryptolog/data/repository)
+- ViewModels em [`app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel`](https://github.com/brect/mycryptolog-app/tree/main/app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel)
+- Use cases em [`app/src/main/java/com/blimas/mycryptolog/domain/usecase`](https://github.com/brect/mycryptolog-app/tree/main/app/src/main/java/com/blimas/mycryptolog/domain/usecase)
+- Contratos de repositório em [`app/src/main/java/com/blimas/mycryptolog/domain/repository`](https://github.com/brect/mycryptolog-app/tree/main/app/src/main/java/com/blimas/mycryptolog/domain/repository)
+- Implementações de repositório em [`app/src/main/java/com/blimas/mycryptolog/data/repository`](https://github.com/brect/mycryptolog-app/tree/main/app/src/main/java/com/blimas/mycryptolog/data/repository)
 
 ### 4. Injeção de Dependência
 
@@ -108,10 +108,10 @@ Benefícios alcançados:
 
 Evidências:
 
-- Inicialização do Hilt em [`mycryptolog/MyCryptoLogApp.kt`](mycryptolog/MyCryptoLogApp.kt)
-- Injeção na activity em [`mycryptolog/application/MainActivity.kt`](mycryptolog/application/MainActivity.kt)
-- Provedores de dependência em [`mycryptolog/di/AppModule.kt`](mycryptolog/di/AppModule.kt)
-- Injeção por construtor em [`mycryptolog/presentation/viewmodel/AuthViewModel.kt`](mycryptolog/presentation/viewmodel/AuthViewModel.kt), [`mycryptolog/presentation/viewmodel/WalletViewModel.kt`](mycryptolog/presentation/viewmodel/WalletViewModel.kt) e [`mycryptolog/presentation/viewmodel/TransactionViewModel.kt`](mycryptolog/presentation/viewmodel/TransactionViewModel.kt)
+- Inicialização do Hilt em [`app/src/main/java/com/blimas/mycryptolog/MyCryptoLogApp.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/MyCryptoLogApp.kt)
+- Injeção na activity em [`app/src/main/java/com/blimas/mycryptolog/application/MainActivity.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/application/MainActivity.kt)
+- Provedores de dependência em [`app/src/main/java/com/blimas/mycryptolog/di/AppModule.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/di/AppModule.kt)
+- Injeção por construtor em [`app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/AuthViewModel.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/AuthViewModel.kt), [`app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/WalletViewModel.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/WalletViewModel.kt) e [`app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/TransactionViewModel.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/TransactionViewModel.kt)
 
 ### 5. Testes Unitários
 
@@ -127,8 +127,8 @@ Esses testes validam o use case `CalculateHoldingsUseCase`, responsável por uma
 
 Evidências:
 
-- Testes em [`mycryptolog/domain/usecase/CalculateHoldingsUseCaseTest.kt`](mycryptolog/domain/usecase/CalculateHoldingsUseCaseTest.kt)
-- Regra testada em [`mycryptolog/domain/usecase/CalculateHoldingsUseCase.kt`](mycryptolog/domain/usecase/CalculateHoldingsUseCase.kt)
+- Testes em [`app/src/test/java/com/blimas/mycryptolog/domain/usecase/CalculateHoldingsUseCaseTest.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/test/java/com/blimas/mycryptolog/domain/usecase/CalculateHoldingsUseCaseTest.kt)
+- Regra testada em [`app/src/main/java/com/blimas/mycryptolog/domain/usecase/CalculateHoldingsUseCase.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/domain/usecase/CalculateHoldingsUseCase.kt)
 
 ### 6. Design Patterns
 
@@ -150,10 +150,10 @@ O projeto utiliza padrões de projeto adequados ao contexto da aplicação.
 
 Evidências:
 
-- Repositórios em [`mycryptolog/domain/repository/WalletRepository.kt`](mycryptolog/domain/repository/WalletRepository.kt), [`mycryptolog/domain/repository/TransactionRepository.kt`](mycryptolog/domain/repository/TransactionRepository.kt), [`mycryptolog/data/repository/WalletRepositoryImpl.kt`](mycryptolog/data/repository/WalletRepositoryImpl.kt) e [`mycryptolog/data/repository/TransactionRepositoryImpl.kt`](mycryptolog/data/repository/TransactionRepositoryImpl.kt)
-- Mapper em [`mycryptolog/data/mapper/Mappers.kt`](mycryptolog/data/mapper/Mappers.kt)
-- Estados reativos em [`mycryptolog/presentation/viewmodel/AuthViewModel.kt`](mycryptolog/presentation/viewmodel/AuthViewModel.kt), [`mycryptolog/presentation/viewmodel/WalletViewModel.kt`](mycryptolog/presentation/viewmodel/WalletViewModel.kt) e [`mycryptolog/presentation/viewmodel/TransactionViewModel.kt`](mycryptolog/presentation/viewmodel/TransactionViewModel.kt)
-- State Patter em em [`mycryptolog/presentation/viewmodel/WalletUiState.kt`](mycryptolog/presentation/viewmodel/WalletUiState.kt)
+- Repositórios em [`app/src/main/java/com/blimas/mycryptolog/domain/repository/WalletRepository.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/domain/repository/WalletRepository.kt), [`app/src/main/java/com/blimas/mycryptolog/domain/repository/TransactionRepository.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/domain/repository/TransactionRepository.kt), [`app/src/main/java/com/blimas/mycryptolog/data/repository/WalletRepositoryImpl.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/data/repository/WalletRepositoryImpl.kt) e [`app/src/main/java/com/blimas/mycryptolog/data/repository/TransactionRepositoryImpl.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/data/repository/TransactionRepositoryImpl.kt)
+- Mapper em [`app/src/main/java/com/blimas/mycryptolog/data/mapper/Mappers.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/data/mapper/Mappers.kt)
+- Estados reativos em [`app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/AuthViewModel.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/AuthViewModel.kt), [`app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/WalletViewModel.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/WalletViewModel.kt) e [`app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/TransactionViewModel.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/TransactionViewModel.kt)
+- State Pattern em [`app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/WalletUiState.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/viewmodel/WalletUiState.kt)
 
 ### 7. Interface com pelo menos 3 telas funcionais
 
@@ -179,18 +179,18 @@ Como a navegação funciona:
 
 Evidências:
 
-- Grafo de navegação em [`mycryptolog/presentation/navigation/NavGraph.kt`](mycryptolog/presentation/navigation/NavGraph.kt)
-- Tela de login em [`mycryptolog/presentation/ui/screens/auth/LoginScreen.kt`](mycryptolog/presentation/ui/screens/auth/LoginScreen.kt)
-- Tela de cadastro em [`mycryptolog/presentation/ui/screens/auth/SignUpScreen.kt`](mycryptolog/presentation/ui/screens/auth/SignUpScreen.kt)
-- Tela principal com abas em [`mycryptolog/presentation/ui/screens/HomeScreen.kt`](mycryptolog/presentation/ui/screens/HomeScreen.kt)
-- Tela de carteiras em [`mycryptolog/presentation/ui/screens/WalletsScreen.kt`](mycryptolog/presentation/ui/screens/WalletsScreen.kt)
-- Tela de transações em [`mycryptolog/presentation/ui/screens/TransactionsScreen.kt`](mycryptolog/presentation/ui/screens/TransactionsScreen.kt)
-- Tela de adicionar/editar transação em [`mycryptolog/presentation/ui/screens/AddTransactionScreen.kt`](mycryptolog/presentation/ui/screens/AddTransactionScreen.kt)
+- Grafo de navegação em [`app/src/main/java/com/blimas/mycryptolog/presentation/navigation/NavGraph.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/navigation/NavGraph.kt)
+- Tela de login em [`app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/auth/LoginScreen.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/auth/LoginScreen.kt)
+- Tela de cadastro em [`app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/auth/SignUpScreen.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/auth/SignUpScreen.kt)
+- Tela principal com abas em [`app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/HomeScreen.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/HomeScreen.kt)
+- Tela de carteiras em [`app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/WalletsScreen.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/WalletsScreen.kt)
+- Tela de transações em [`app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/TransactionsScreen.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/TransactionsScreen.kt)
+- Tela de adicionar/editar transação em [`app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/AddTransactionScreen.kt`](https://github.com/brect/mycryptolog-app/blob/main/app/src/main/java/com/blimas/mycryptolog/presentation/ui/screens/AddTransactionScreen.kt)
 
 ## Estrutura do Projeto
 
 ```text
-mycryptolog
+app/src/main/java/com/blimas/mycryptolog
 ├── application        -> Activity principal
 ├── data               -> DTOs, mappers e repositórios concretos
 ├── di                 -> Módulos de injeção de dependência
