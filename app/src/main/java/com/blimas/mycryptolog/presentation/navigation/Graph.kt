@@ -1,4 +1,4 @@
-package com.blimas.mycryptolog.ui.navigation
+package com.blimas.mycryptolog.presentation.navigation
 
 object Graph {
     const val SPLASH = "splash_graph"

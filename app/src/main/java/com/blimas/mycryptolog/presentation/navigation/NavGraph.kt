@@ -1,4 +1,4 @@
-package com.blimas.mycryptolog.ui.navigation
+package com.blimas.mycryptolog.presentation.navigation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,12 +17,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.blimas.mycryptolog.model.AuthState
-import com.blimas.mycryptolog.ui.screens.AddTransactionScreen
-import com.blimas.mycryptolog.ui.screens.HomeScreen
-import com.blimas.mycryptolog.ui.screens.auth.LoginScreen
-import com.blimas.mycryptolog.ui.screens.auth.SignUpScreen
-import com.blimas.mycryptolog.viewmodel.AuthViewModel
+import com.blimas.mycryptolog.domain.model.AuthState
+import com.blimas.mycryptolog.presentation.viewmodel.AuthViewModel
+import com.blimas.mycryptolog.presentation.ui.screens.AddTransactionScreen
+import com.blimas.mycryptolog.presentation.ui.screens.HomeScreen
+import com.blimas.mycryptolog.presentation.ui.screens.auth.LoginScreen
+import com.blimas.mycryptolog.presentation.ui.screens.auth.SignUpScreen
 
 @Composable
 fun NavGraph(authViewModel: AuthViewModel = hiltViewModel()) {

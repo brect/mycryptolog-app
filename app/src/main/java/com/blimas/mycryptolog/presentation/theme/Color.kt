@@ -1,4 +1,4 @@
-package com.blimas.mycryptolog.ui.theme
+package com.blimas.mycryptolog.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.blimas.mycryptolog.ui.theme
+package com.blimas.mycryptolog.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
