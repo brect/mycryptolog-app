@@ -24,7 +24,7 @@ O aplicativo permite:
 - Hilt para injeção de dependência
 - JUnit para testes unitários
 
-## Relatório de Atendimento aos Requisitos
+## Relatório de Requisitos
 
 ### 1. Desenvolvimento de um aplicativo Android
 
